@@ -1,36 +1,17 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<h1>{{ title }}</h1>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction to Aryan</title>
-</head>
-<body>
-<h1>Welcome!</h1>
-<h1>Welcome to my App!</h1>
+<div *ngFor="let user of userList">
+  <div>
+    <p><strong>ID:</strong> {{ user.id }}</p>
+    <p><strong>Name:</strong> {{ user.firstName }} {{ user.lastName }}</p>
+    <p><strong>Department:</strong> {{ user.department }}</p>
 
-<p>My name is {{ name }} and I am {{ age }} years old.</p>
-<p>I am a Project Researcher and Computer Programmer, skilled in IoT and team development. I work in project management in college and also serve as a general manager in a restaurant.</p>
-<p>Feel free to connect with me on LinkedIn. My headline is: Project Researcher | Computer Programmer | Skilled in IoT, Team Development.</p>
-<p>Thank you for visiting this page!</p>
-</body>
-</html>
-
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
+    <p *ngIf="user.isAdmin; else notAdmin">
+      <strong>Status:</strong> Admin
+    </p>
+    <ng-template #notAdmin>
+      <p><strong>Status:</strong> Not Admin</p>
+    </ng-template>
+  </div>
+  <hr>
+</div>
