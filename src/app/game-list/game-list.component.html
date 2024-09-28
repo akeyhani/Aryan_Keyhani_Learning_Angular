@@ -1,3 +1,6 @@
 <div>
-  <app-content-list-item></app-content-list-item>
-  </div>
+  <app-game-list-item
+    *ngFor="let game of gameList; let index = index"
+    [game]="game">
+  </app-game-list-item>
+</div>
