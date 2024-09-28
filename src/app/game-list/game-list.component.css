@@ -1,0 +1,15 @@
+.odd{
+  background-color: aquamarine;
+  display: block;
+}
+
+.even{
+  background-color: magenta;
+  display: block;
+}
+
+div {
+  padding: 10px;
+  border: 1px solid black;
+  margin: 5px;
+}
