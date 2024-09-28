@@ -1,17 +1,1 @@
-<h1>{{ title }}</h1>
-
-<div *ngFor="let user of userList">
-  <div>
-    <p><strong>ID:</strong> {{ user.id }}</p>
-    <p><strong>Name:</strong> {{ user.firstName }} {{ user.lastName }}</p>
-    <p><strong>Department:</strong> {{ user.department }}</p>
-
-    <p *ngIf="user.isAdmin; else notAdmin">
-      <strong>Status:</strong> Admin
-    </p>
-    <ng-template #notAdmin>
-      <p><strong>Status:</strong> Not Admin</p>
-    </ng-template>
-  </div>
-  <hr>
-</div>
+<app-game-list></app-game-list>
