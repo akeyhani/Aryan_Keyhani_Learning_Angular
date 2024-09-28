@@ -1,0 +1,6 @@
+.content-item {
+  border: 2px solid black; /* 2-pixel border */
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px; /* Optional: makes the corners rounded */
+}
