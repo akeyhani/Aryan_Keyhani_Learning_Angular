@@ -1,4 +1,4 @@
-export interface game {
+export interface Games {
   title: string;
   genre: string;
   developer: string;

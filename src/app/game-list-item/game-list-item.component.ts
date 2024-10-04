@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { NgForOf, NgClass } from '@angular/common';
+import { Games } from '../Games';
+
+
 
 @Component({
   selector: 'app-game-list-item',
@@ -9,5 +12,5 @@ import { NgForOf, NgClass } from '@angular/common';
   styleUrl: './game-list-item.component.css'
 })
 export class GameListItemComponent {
-  @Input() game!: { title: string; genre: string; developer: string; releaseDate: string; rating: string };
+  @Input() gameItem?:Games;
 }

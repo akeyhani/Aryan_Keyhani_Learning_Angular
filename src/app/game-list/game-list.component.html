@@ -1,11 +1,5 @@
-<div>
-  <app-game-list-item
-    [game]="game"
-    *ngFor="let game of gameList; let i = index" [ngClass]="{ 'even': i % 2 === 0, 'odd': i % 2 !== 0 }">
-    <h3>{{ game.title }}</h3>
-    <p>Genre: {{ game.genre }}</p>
-    <p>Developer: {{ game.developer }}</p>
-    <p>Release Date: {{ game.releaseDate }}</p>
-    <p>Rating: {{ game.rating }}</p>>
-  </app-game-list-item>
+<div *ngFor="let item of gameList; let i = index" [ngClass]="{ 'even': i % 2 === 0, 'odd': i % 2 !== 0 }">
+<app-game-list-item [gameItem]="item">
+
+</app-game-list-item>
 </div>
