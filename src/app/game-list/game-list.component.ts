@@ -1,39 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { NgClass, NgForOf, CommonModule } from "@angular/common";
-import { Games } from '../Games';  // Import the Games model
-import { GameService } from '../game.service';  // Import the GameService
-import { GameListItemComponent } from '../game-list-item/game-list-item.component';
-import { Observable } from 'rxjs';  // Import Observable
+import { Component, OnInit } from '@angular/core';  // Import necessary Angular components
+import { Games } from '../Games';  // Import your Games type
+import { GameService } from '../game.service';  // Import your GameService
+import { CommonModule } from '@angular/common';  // Import CommonModule for ngFor
+import { GameListItemComponent } from '../game-list-item/game-list-item.component';  // Import your item component
 
 @Component({
   selector: 'app-game-list',
   standalone: true,
-  imports: [NgClass, NgForOf, GameListItemComponent, CommonModule, NgForOf],
-  templateUrl: './game-list.component.html',
-  styleUrls: ['./game-list.component.css']
+  imports: [CommonModule, GameListItemComponent],  // Declare imports here
+  templateUrl: './game-list.component.html',  // Link to your HTML template
+  styleUrls: ['./game-list.component.css']  // Link to your CSS styles
 })
 export class GameListComponent implements OnInit {
-  // Store the games in an observable array
-  gameList$!: Observable<Games[]>;
+  gameList: Games[] = [];  // Initialize an empty array for games
 
-  // Inject the GameService in the constructor
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService) {}  // Inject GameService into the component
 
-  // Use ngOnInit to fetch the games when the component initializes
   ngOnInit(): void {
-    this.gameList$ = this.gameService.getAllGames();  // Fetch the games as an observable
-  }
-
-  // Example method to add a new game (optional)
-  addGame(): void {
-    const newGame: Games = {
-      title: 'New Game',
-      genre: 'New Genre',
-      developer: 'New Developer',
-      releaseDate: '2024',
-      rating: '8/10'
-    };
-    this.gameService.addGame(newGame);
-    this.gameList$ = this.gameService.getAllGames();  // Refresh the game list
+    // Subscribe to the observable to retrieve the list of games
+    this.gameService.getAllGames().subscribe(
+      (games: Games[]) => {
+        this.gameList = games;  // Assign the received games to the gameList array
+      },
+      (error) => {
+        console.error('Error fetching game data', error);  // Log any errors
+      }
+    );
   }
 }
