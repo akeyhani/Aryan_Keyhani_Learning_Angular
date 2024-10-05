@@ -1,16 +1,21 @@
 import { Component, Input } from '@angular/core';
-import { NgForOf, NgClass } from '@angular/common';
 import { Games } from '../Games';
-
-
 
 @Component({
   selector: 'app-game-list-item',
+  template: `
+    <div class="content-item">
+      <h2>{{ gameItem?.id }}</h2>
+      <h2>{{ gameItem?.title }}</h2>
+      <p>Genre: {{ gameItem?.genre }}</p>
+      <p>Developer: {{ gameItem?.developer }}</p>
+      <p>Release Date: {{ gameItem?.releaseDate }}</p>
+      <p>Rating: {{ gameItem?.rating }}</p>
+    </div>
+  `,
   standalone: true,
-  imports: [NgForOf, NgClass],
-  templateUrl: './game-list-item.component.html',
-  styleUrl: './game-list-item.component.css'
+  styleUrls: ['./game-list-item.component.css'] // Changed to styleUrls
 })
 export class GameListItemComponent {
-  @Input() gameItem?:Games;
+  @Input() gameItem?: Games; // Optional chaining used to avoid undefined errors
 }

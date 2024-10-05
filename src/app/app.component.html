@@ -1,3 +1,10 @@
 <div>
-<app-game-list></app-game-list>
-  </div>
+  <h1>{{ title }}</h1>
+  <p>Date: {{ date }}</p>
+
+  <!-- Display the single game item -->
+  <app-game-list-item [gameItem]="singleGameItem"></app-game-list-item>
+
+  <!-- Display the game list -->
+  <app-game-list></app-game-list>
+</div>

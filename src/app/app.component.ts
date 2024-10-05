@@ -1,27 +1,40 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
- // Use the Game interface
 import { NgForOf, NgIf } from "@angular/common";
-import { GameListComponent } from './game-list/game-list.component';  // Replace SmiteGodsListComponent with GameListComponent
+import { GameListComponent } from './game-list/game-list.component';
+import { GameListItemComponent } from './game-list-item/game-list-item.component';
+import { GameService } from './game.service';
 import { Games } from './Games';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgForOf, NgIf, GameListComponent],  // Use GameListComponent
+  imports: [RouterOutlet, NgForOf, NgIf, GameListItemComponent, GameListComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Hello, my name is Aryan';  // Change name to Aryan
-  date = new Date().toLocaleDateString();  // Use today's date
+  title = 'Hello, my name is Aryan';
+  date = new Date().toLocaleDateString();
 
-  // Replace Smite gods with games
-  game1: Games = { title: 'The Legend of Zelda: Breath of the Wild', genre: 'Action-adventure', developer: 'Nintendo', releaseDate: 'March 3, 2017', rating: '10/10' };
-  game2: Games = { title: 'Cyberpunk 2077', genre: 'RPG', developer: 'CD Projekt Red', releaseDate: 'December 10, 2020', rating: '7/10' };
-  game3: Games = { title: 'God of War', genre: 'Action-adventure', developer: 'Santa Monica Studio', releaseDate: 'April 20, 2018', rating: '9.5/10' };
-  game4: Games = { title: 'Minecraft', genre: 'Sandbox, Survival', developer: 'Mojang Studios', releaseDate: 'November 18, 2011', rating: '9/10' };
+  gameList: Games[] = [];
+  singleGameItem?: Games;  // Optional to handle case where the game might not be found
 
-  // Create a list of games
-  gameList: Games[] = [this.game1, this.game2, this.game3, this.game4];
+  constructor(private gameService: GameService) {
+    this.loadGames();
+    this.getGameById(2);  // Change the ID to whatever you want to retrieve
+  }
+
+  loadGames(): void {
+    this.gameService.getAllGames().subscribe(games => {
+      this.gameList = games;
+    });
+  }
+
+  getGameById(id: number): void {
+    this.gameService.getGameById(id).subscribe(game => {
+      this.singleGameItem = game;  // Set the retrieved game to singleGameItem
+    });
+  }
 }
