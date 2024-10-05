@@ -1,30 +1,34 @@
-import { Component, OnInit } from '@angular/core';  // Import necessary Angular components
-import { Games } from '../Games';  // Import your Games type
-import { GameService } from '../game.service';  // Import your GameService
-import { CommonModule } from '@angular/common';  // Import CommonModule for ngFor
-import { GameListItemComponent } from '../game-list-item/game-list-item.component';  // Import your item component
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';  // Add EventEmitter
+import { Games } from '../Games';
+import { GameService } from '../game.service';
+import { CommonModule } from '@angular/common';
+import { GameListItemComponent } from '../game-list-item/game-list-item.component';
 
 @Component({
   selector: 'app-game-list',
   standalone: true,
-  imports: [CommonModule, GameListItemComponent],  // Declare imports here
-  templateUrl: './game-list.component.html',  // Link to your HTML template
-  styleUrls: ['./game-list.component.css']  // Link to your CSS styles
+  imports: [CommonModule, GameListItemComponent],
+  templateUrl: './game-list.component.html',
+  styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent implements OnInit {
-  gameList: Games[] = [];  // Initialize an empty array for games
+  gameList: Games[] = [];
+  @Output() gameSelected = new EventEmitter<Games>();  // Output event to emit selected game
 
-  constructor(private gameService: GameService) {}  // Inject GameService into the component
+  constructor(private gameService: GameService) {}
 
   ngOnInit(): void {
-    // Subscribe to the observable to retrieve the list of games
     this.gameService.getAllGames().subscribe(
       (games: Games[]) => {
-        this.gameList = games;  // Assign the received games to the gameList array
+        this.gameList = games;
       },
       (error) => {
-        console.error('Error fetching game data', error);  // Log any errors
+        console.error('Error fetching game data', error);
       }
     );
+  }
+
+  selectGame(game: Games): void {
+    this.gameSelected.emit(game);  // Emit the selected game
   }
 }
