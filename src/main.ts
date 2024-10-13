@@ -1,6 +1,10 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { ModifyListItemComponent } from './modify-list-item/modify-list-item.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+export const routes: Routes = [
+  { path: '', component: HomeComponent }, // Home route
+  { path: 'modify-item', component: ModifyListItemComponent }, // Modify list item route
+  { path: '**', component: PageNotFoundComponent } // Wildcard route for 404 page
+];
