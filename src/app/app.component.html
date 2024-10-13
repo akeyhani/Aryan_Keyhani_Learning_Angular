@@ -1,6 +1,13 @@
-<div>
-  <h1>{{ title }}</h1>
-  <p>Date: {{ date }}</p>
+<div class="container">
+  <nav class="navbar">
+    <a routerLink="/" class="nav-link">Game List</a>
+    <a routerLink="/modify-list-item" class="nav-link">Modify List Item</a>
+  </nav>
+
+  <header>
+    <h1>{{ title }}</h1>
+    <p>Date: {{ date }}</p>
+  </header>
 
   <!-- Display the single game item -->
   <app-game-list-item [gameItem]="singleGameItem"></app-game-list-item>
