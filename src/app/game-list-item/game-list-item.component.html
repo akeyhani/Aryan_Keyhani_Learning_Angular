@@ -1,7 +1,7 @@
 <!-- src/app/game-list-item/game-list-item.component.html -->
-<div class="game-item">
-  <h3>{{ gameItem?.title }}</h3>
-  <img [src]="gameItem?.image" alt="{{ gameItem?.title }}" class="game-image">
+<div class="content-item">
+  <h2>{{ gameItem?.title }}</h2>
+  <img [src]="gameItem?.URL" alt="{{ gameItem?.title }}" class="game-image">  <!-- Use URL for the image -->
   <p>Genre: {{ gameItem?.genre }}</p>
   <p>Developer: {{ gameItem?.developer }}</p>
   <p>Release Date: {{ gameItem?.releaseDate }}</p>

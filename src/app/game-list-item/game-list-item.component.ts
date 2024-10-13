@@ -1,21 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { Games } from '../Games';
+import { Games } from '../Games';  // Make sure you're importing the correct interface
 
 @Component({
   selector: 'app-game-list-item',
-  template: `
-    <div class="content-item">
-      <h2>{{ gameItem?.id }}</h2>
-      <h2>{{ gameItem?.title }}</h2>
-      <p>Genre: {{ gameItem?.genre }}</p>
-      <p>Developer: {{ gameItem?.developer }}</p>
-      <p>Release Date: {{ gameItem?.releaseDate }}</p>
-      <p>Rating: {{ gameItem?.rating }}</p>
-    </div>
-  `,
-  standalone: true,
-  styleUrls: ['./game-list-item.component.css'] // Changed to styleUrls
+  templateUrl: './game-list-item.component.html',
+  styleUrls: ['./game-list-item.component.css'],
+  standalone: true
 })
 export class GameListItemComponent {
-  @Input() gameItem?: Games; // Optional chaining used to avoid undefined errors
+  @Input() gameItem?: Games;  // Declare gameItem as an input property of type Games
 }

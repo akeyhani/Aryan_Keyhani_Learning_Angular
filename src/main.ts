@@ -7,7 +7,7 @@ import { ModifyListItemComponent } from './app/modify-list-item/modify-list-item
 import { PageNotFoundComponent } from './app/page-not-found/page-not-found.component';  // Correct path for PageNotFoundComponent
 
 // Define the routes
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: '/game-list', pathMatch: 'full' },  // Redirect to default route
   { path: 'game-list', component: GameListComponent },  // List of games
   { path: 'game-list/:id', component: GameListItemComponent },  // Individual game item (dynamic route)

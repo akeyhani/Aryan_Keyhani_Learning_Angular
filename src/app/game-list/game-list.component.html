@@ -1,3 +1,14 @@
-<div *ngFor="let game of gameList" (click)="selectGame(game)" style="cursor: pointer;">
+<!-- Display the list of games with alternating row styles using ngClass -->
+<div *ngFor="let game of gameList; let index = index" [ngClass]="{'even': index % 2 === 0, 'odd': index % 2 !== 0}" style="cursor: pointer;" (click)="selectGame(game)">
   <app-game-list-item [gameItem]="game"></app-game-list-item>
+</div>
+
+<!-- Display the selected game details if a game is selected -->
+<div class="content-item" *ngIf="selectedGame">
+  <h2>{{ selectedGame?.title }}</h2>
+  <img [src]="selectedGame?.URL" alt="{{ selectedGame?.title }}" class="game-image">
+  <p>Genre: {{ selectedGame?.genre }}</p>
+  <p>Developer: {{ selectedGame?.developer }}</p>
+  <p>Release Date: {{ selectedGame?.releaseDate }}</p>
+  <p>Rating: {{ selectedGame?.rating }}</p>
 </div>
