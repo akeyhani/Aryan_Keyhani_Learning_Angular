@@ -1,6 +1,25 @@
-.content-item {
-  border: 2px solid black; /* 2-pixel border */
-  padding: 10px;
-  margin: 5px;
-  border-radius: 5px; /* Optional: makes the corners rounded */
+/* src/app/game-list-item/game-list-item.component.css */
+.game-item {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.game-item h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.game-item .game-image {
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+  margin-bottom: 10px;
+}
+
+.game-item p {
+  font-size: 1.1em;
+  color: #666;
 }

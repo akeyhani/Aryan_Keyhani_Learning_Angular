@@ -5,4 +5,5 @@ export interface Games {
   developer: string;
   releaseDate: string;
   rating: string;
+  URL: string;
 }
