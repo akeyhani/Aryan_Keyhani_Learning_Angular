@@ -1,6 +1,13 @@
 <!-- Display the list of games with alternating row styles using ngClass -->
-<div *ngFor="let game of gameList; let index = index" [ngClass]="{'even': index % 2 === 0, 'odd': index % 2 !== 0}" style="cursor: pointer;" (click)="selectGame(game)">
+<div *ngFor="let game of gameList; let index = index" [ngClass]="{'even': index % 2 === 0, 'odd': index % 2 !== 0}" style="cursor: pointer;">
+  <!-- Game Item Display -->
   <app-game-list-item [gameItem]="game"></app-game-list-item>
+
+  <!-- Edit and Delete buttons for each game -->
+  <div class="game-actions">
+    <button (click)="editGame(game)">Edit</button>
+    <button (click)="deleteGame(game.id)">Delete</button>
+  </div>
 </div>
 
 <!-- Display the selected game details if a game is selected -->
