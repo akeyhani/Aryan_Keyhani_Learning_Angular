@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';  // Import Router for navigation
+import { Router } from '@angular/router';
 import { Games } from '../Games';
 import { GameService } from '../game.service';
 import { CommonModule } from '@angular/common';
@@ -14,12 +14,17 @@ import { GameListItemComponent } from '../game-list-item/game-list-item.componen
 })
 export class GameListComponent implements OnInit {
   gameList: Games[] = [];  // List of games
-  selectedGame?: Games;    // The selected game
+  selectedGame?: Games;    // The selected game for viewing/editing
 
-  constructor(private gameService: GameService, private router: Router) {}  // Inject Router
+  constructor(private gameService: GameService, private router: Router) {}
 
   ngOnInit(): void {
     // Fetch all games from the service when the component initializes
+    this.loadGames();
+  }
+
+  // Method to load games from the service
+  private loadGames(): void {
     this.gameService.getAllGames().subscribe(
       (games: Games[]) => {
         this.gameList = games;
@@ -30,12 +35,12 @@ export class GameListComponent implements OnInit {
     );
   }
 
-  // Method to handle game selection
+  // Method to handle game selection for viewing
   selectGame(game: Games): void {
-    this.selectedGame = game;  // Set the selected game
+    this.selectedGame = game;
   }
 
-  // Method to edit a game by navigating to the modify form
+  // Method to navigate to the form to edit a game
   editGame(game: Games): void {
     this.router.navigate(['/modify-list-item'], { queryParams: { id: game.id } });
   }
@@ -44,8 +49,8 @@ export class GameListComponent implements OnInit {
   deleteGame(id: number): void {
     this.gameService.removeGameById(id).subscribe({
       next: () => {
-        // Update the game list after deletion
-        this.gameList = this.gameList.filter(game => game.id !== id);
+        // Refresh the game list after deletion
+        this.loadGames();
       },
       error: err => console.error("Error deleting game", err)
     });
