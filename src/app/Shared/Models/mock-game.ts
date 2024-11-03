@@ -8,7 +8,8 @@ export class GameListComponent {
     genre: 'Action-adventure',
     developer: 'Nintendo',
     releaseDate: 'March 3, 2017',
-    rating: '10/10'
+    rating: '10/10',
+    URL: ''
   };
   game2: Games = {
     id: 2,
@@ -16,7 +17,8 @@ export class GameListComponent {
     genre: 'RPG',
     developer: 'CD Projekt Red',
     releaseDate: 'December 10, 2020',
-    rating: '7/10'
+    rating: '7/10',
+    URL: ''
   };
   game3: Games = {
     id: 3,
@@ -24,7 +26,8 @@ export class GameListComponent {
     genre: 'Action-adventure',
     developer: 'Santa Monica Studio',
     releaseDate: 'April 20, 2018',
-    rating: '9.5/10'
+    rating: '9.5/10',
+    URL: ''
   };
   game4: Games = {
     id: 4,
@@ -32,6 +35,7 @@ export class GameListComponent {
     genre: 'Sandbox, Survival',
     developer: 'Mojang Studios',
     releaseDate: 'November 18, 2011',
-    rating: '9/10'
+    rating: '9/10',
+    URL: ''
   };
 }
