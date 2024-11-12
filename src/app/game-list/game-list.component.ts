@@ -13,6 +13,7 @@ import { GameListItemComponent } from '../game-list-item/game-list-item.componen
 })
 export class GameListComponent implements OnInit {
   gameList: Games[] = [];  // Array to store list of games
+  errorMessage: string | null = null;  // Store error messages
 
   constructor(private gameService: GameService) {}
 
@@ -23,9 +24,14 @@ export class GameListComponent implements OnInit {
   // Method to load games from the service
   private loadGames(): void {
     this.gameService.getAllGames().subscribe({
-      next: (games: Games[]) => this.gameList = games,
-      error: err => console.error("Error fetching games", err),
-      complete: () => console.log("Game data fetch complete!")
+      next: (games: Games[]) => {
+        this.gameList = games;
+        this.errorMessage = null;  // Reset error if data is fetched successfully
+      },
+      error: err => {
+        console.error("Error fetching games", err);
+        this.errorMessage = "Failed to load games. Please try again later.";
+      }
     });
   }
 }

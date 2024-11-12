@@ -1,4 +1,8 @@
-<!-- Display the list of games with alternating row styles using ngClass -->
-<div *ngFor="let game of gameList; let index = index" [ngClass]="{'even': index % 2 === 0, 'odd': index % 2 !== 0}">
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<!-- Display the list of games -->
+<div *ngFor="let game of gameList" class="game-list-item">
   <app-game-list-item [gameItem]="game"></app-game-list-item>
 </div>

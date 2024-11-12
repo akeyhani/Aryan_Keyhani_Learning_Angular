@@ -8,6 +8,7 @@ import { Games } from '../Games';
   providedIn: 'root'
 })
 export class GameService {
+
   private apiUrl = '/api/games'; // URL to web API
 
   httpOptions = {

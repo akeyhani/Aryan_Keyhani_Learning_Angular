@@ -16,6 +16,7 @@ export class ModifyListItemComponent implements OnInit {
   gameForm!: FormGroup;  // Form group for managing game details
   isEditMode: boolean = false;
   selectedGame?: Games;
+  gameList: Games[] = [];  // To hold all games for validation
   error: string | null = null;  // Error handling
 
   constructor(
@@ -26,17 +27,17 @@ export class ModifyListItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Initialize the form with custom validators
-    this.gameForm = this.fb.group({
-      id: ['', [Validators.required, CustomValidators.positiveNumber(), CustomValidators.uniqueGame(this.gameService.games, 'id')]],
-      title: ['', [Validators.required, CustomValidators.noSpecialChars(), CustomValidators.uniqueGame(this.gameService.games, 'title')]],
-      genre: ['', Validators.required],
-      developer: ['', Validators.required],
-      releaseDate: ['', Validators.required],
-      rating: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
-      URL: ['', Validators.required]
+    // Load games to pass to custom validators
+    this.gameService.getAllGames().subscribe({
+      next: (games) => {
+        this.gameList = games;
+        this.initializeForm();  // Initialize form after fetching game data
+      },
+      error: err => {
+        console.error('Error loading games', err);
+        this.error = 'Failed to load game data for validation';
+      }
     });
-
 
     // Check query params for edit mode
     this.route.queryParams.subscribe(params => {
@@ -45,6 +46,33 @@ export class ModifyListItemComponent implements OnInit {
         this.isEditMode = true;
         this.loadGameForEdit(+id);  // Load existing game data for editing
       }
+    });
+  }
+
+  // Initialize the form with custom validators
+  initializeForm(): void {
+    this.gameForm = this.fb.group({
+      id: [
+        '',
+        [
+          Validators.required,
+          CustomValidators.positiveNumber(),
+          CustomValidators.uniqueGame(this.gameList, 'id')
+        ]
+      ],
+      title: [
+        '',
+        [
+          Validators.required,
+          CustomValidators.noSpecialChars(),
+          CustomValidators.uniqueGame(this.gameList, 'title')
+        ]
+      ],
+      genre: ['', Validators.required],
+      developer: ['', Validators.required],
+      releaseDate: ['', Validators.required],
+      rating: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
+      URL: ['', Validators.required]
     });
   }
 
@@ -79,8 +107,7 @@ export class ModifyListItemComponent implements OnInit {
 
   // Add a new game
   addGame(game: Games): void {
-    const newId = this.gameService.generateNewId();
-    game.id = newId;
+    game.id = this.gameService.generateNewId();
     this.gameService.addGame(game).subscribe({
       next: () => {
         console.log('Game added:', game);
