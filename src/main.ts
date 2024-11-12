@@ -1,13 +1,13 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { provideRouter, Routes } from '@angular/router';
-import { GameListComponent } from './app/game-list/game-list.component';  // Correct path for GameListComponent
-import { GameListItemComponent } from './app/game-list-item/game-list-item.component';  // Correct path for GameListItemComponent
-import { ModifyListItemComponent } from './app/modify-list-item/modify-list-item.component';  // Correct path for ModifyListItemComponent
-import { PageNotFoundComponent } from './app/page-not-found/page-not-found.component';  // Correct path for PageNotFoundComponent
+import { GameListComponent } from './app/game-list/game-list.component';
+import { GameListItemComponent } from './app/game-list-item/game-list-item.component';
+import { ModifyListItemComponent } from './app/modify-list-item/modify-list-item.component';
+import { PageNotFoundComponent } from './app/page-not-found/page-not-found.component';
 
 // Define the routes
-export const routes: Routes = [
+const routes: Routes = [
   { path: '', redirectTo: '/game-list', pathMatch: 'full' },  // Redirect to default route
   { path: 'game-list', component: GameListComponent },  // List of games
   { path: 'game-list/:id', component: GameListItemComponent },  // Individual game item (dynamic route)
@@ -20,4 +20,3 @@ bootstrapApplication(AppComponent, {
   providers: [provideRouter(routes)]
 })
   .then(r => console.log('Bootstrap successful'))
-  .catch(err => console.error(err));

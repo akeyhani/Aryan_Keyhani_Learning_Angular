@@ -1,17 +1,11 @@
-<div class="container">
-  <nav class="navbar">
-    <a routerLink="/" class="nav-link">Game List</a>
-    <a routerLink="/modify-list-item" class="nav-link">Modify List Item</a>
+<div class="nav-bar">
+  <nav>
+    <a routerLink="/game-list" routerLinkActive="active">Game List</a>
+    <a routerLink="/modify-list-item" routerLinkActive="active">Modify Game</a>
   </nav>
+</div>
 
-  <header>
-    <h1>{{ title }}</h1>
-    <p>Date: {{ date }}</p>
-  </header>
-
-  <!-- Display the single game item -->
-  <app-game-list-item [gameItem]="singleGameItem"></app-game-list-item>
-
-  <!-- Display the game list -->
-  <app-game-list></app-game-list>
+<div class="app-container">
+  <!-- Display routed components here -->
+  <router-outlet></router-outlet>
 </div>

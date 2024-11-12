@@ -1,9 +1,11 @@
-<!-- src/app/game-list-item/game-list-item.component.html -->
-<div class="content-item">
-  <h2>{{ gameItem?.title }}</h2>
-  <img [src]="gameItem?.URL" alt="{{ gameItem?.title }}" class="game-image">  <!-- Use URL for the image -->
-  <p>Genre: {{ gameItem?.genre }}</p>
+<div class="video-game-container">
+  <h3>{{ gameItem?.title }}</h3>
+  <h4>{{ gameItem?.genre }}</h4>
   <p>Developer: {{ gameItem?.developer }}</p>
   <p>Release Date: {{ gameItem?.releaseDate }}</p>
   <p>Rating: {{ gameItem?.rating }}</p>
+  <img [src]="gameItem?.URL" alt="{{ gameItem?.title }}" width="200" height="300" class="game-image">
+
+  <button type="button" (click)="onEdit()">Edit</button>
+  <button type="button" (click)="onDelete(gameItem?.id)">Delete</button>
 </div>

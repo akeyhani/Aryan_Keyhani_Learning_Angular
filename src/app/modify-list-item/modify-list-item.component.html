@@ -1,36 +1,56 @@
-<form [formGroup]="modifyForm" (ngSubmit)="onSubmit()">
-  <label>
-    ID:
-    <input formControlName="id" type="number">
-    <div *ngIf="modifyForm.controls['id'].hasError('positiveNumber')">ID must be a positive number.</div>
-    <div *ngIf="modifyForm.controls['id'].hasError('unique')">ID must be unique.</div>
-  </label>
-  <label>
-    Title:
-    <input formControlName="title" type="text">
-    <div *ngIf="modifyForm.controls['title'].hasError('noSpecialChars')">Title cannot contain special characters.</div>
-    <div *ngIf="modifyForm.controls['title'].hasError('unique')">Title must be unique.</div>
-  </label>
-  <label>
-    Genre:
-    <input formControlName="genre" type="text">
-  </label>
-  <label>
-    Developer:
-    <input formControlName="developer" type="text">
-  </label>
-  <label>
-    Release Date:
-    <input formControlName="releaseDate" type="date">
-  </label>
-  <label>
-    Rating:
-    <input formControlName="rating" type="text" placeholder="e.g., 9.5">
-  </label>
-  <label>
-    Image URL:
-    <input formControlName="URL" type="text" placeholder="https://">
-  </label>
-  <button type="submit" [disabled]="!modifyForm.valid">{{ isEditMode ? 'Update' : 'Add' }} Game</button>
+<form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="id">ID</label>
+    <input type="number" id="id" formControlName="id" />
+    <div *ngIf="gameForm.controls['id'].hasError('positiveNumber')">
+      ID must be a positive number.
+    </div>
+    <div *ngIf="gameForm.controls['id'].hasError('unique')">
+      ID must be unique.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" id="title" formControlName="title" />
+    <div *ngIf="gameForm.controls['title'].hasError('noSpecialChars')">
+      Title cannot contain special characters.
+    </div>
+    <div *ngIf="gameForm.controls['title'].hasError('unique')">
+      Title must be unique.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="genre">Genre</label>
+    <input type="text" id="genre" formControlName="genre" />
+  </div>
+
+  <div class="form-group">
+    <label for="developer">Developer</label>
+    <input type="text" id="developer" formControlName="developer" />
+  </div>
+
+  <div class="form-group">
+    <label for="releaseDate">Release Date</label>
+    <input type="date" id="releaseDate" formControlName="releaseDate" />
+  </div>
+
+  <div class="form-group">
+    <label for="rating">Rating</label>
+    <input type="text" id="rating" formControlName="rating" placeholder="e.g., 9.5" />
+  </div>
+
+  <div class="form-group">
+    <label for="URL">Image URL</label>
+    <input type="text" id="URL" formControlName="URL" placeholder="https://" />
+  </div>
+
+  <button type="submit" [disabled]="!gameForm.valid">
+    {{ isEditMode ? 'Update' : 'Add' }} Game
+  </button>
+
   <button type="button" (click)="resetForm()">Reset</button>
+  <button type="button" (click)="onDelete()" *ngIf="isEditMode">Delete</button>
+  <button type="button" (click)="navigateToGameList()">Back to List</button>
 </form>

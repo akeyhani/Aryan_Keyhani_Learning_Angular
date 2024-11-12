@@ -1,40 +1,34 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgForOf, NgIf } from "@angular/common";
 import { GameListComponent } from './game-list/game-list.component';
 import { GameListItemComponent } from './game-list-item/game-list-item.component';
-import { GameService } from './game.service';
+import { GameService } from './Services/game.service';
 import { Games } from './Games';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgForOf, NgIf, GameListItemComponent, GameListComponent],
+  imports: [RouterOutlet, NgForOf, NgIf, GameListComponent, GameListItemComponent, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'Hello, my name is Aryan';
-  date = new Date().toLocaleDateString();
+export class AppComponent implements OnInit {
+  title = 'Hello, my name is Aryan';  // Welcome message
+  date = new Date().toLocaleDateString();  // Display the current date
 
-  gameList: Games[] = [];
-  singleGameItem?: Games;  // Optional to handle case where the game might not be found
+  selectedGame: Games | undefined;  // To store the selected game by ID
 
-  constructor(private gameService: GameService) {
-    this.loadGames();
-    this.getGameById(2);  // Change the ID to whatever you want to retrieve
+  constructor(private gameService: GameService) {}
+
+  ngOnInit() {
+    this.getSelectedGame(2);  // Fetch the game with ID 2 on component initialization
   }
 
-  loadGames(): void {
-    this.gameService.getAllGames().subscribe(games => {
-      this.gameList = games;
-    });
-  }
-
-  getGameById(id: number): void {
-    this.gameService.getGameById(id).subscribe(game => {
-      this.singleGameItem = game;  // Set the retrieved game to singleGameItem
+  getSelectedGame(id: number): void {
+    this.gameService.getGameById(id).subscribe({
+      next: (game) => this.selectedGame = game,  // Set the retrieved game to selectedGame
+      error: err => console.error("Error fetching game by ID", err)
     });
   }
 }
