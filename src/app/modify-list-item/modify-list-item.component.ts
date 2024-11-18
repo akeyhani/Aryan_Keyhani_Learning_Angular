@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Games } from '../Games';
 import { GameService } from '../Services/game.service';
 import { CustomValidators } from '../Shared/custom-validators';
-import { NgIf } from "@angular/common";
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-modify-list-item',
@@ -13,10 +13,10 @@ import { NgIf } from "@angular/common";
   templateUrl: './modify-list-item.component.html',
 })
 export class ModifyListItemComponent implements OnInit {
-  gameForm!: FormGroup;  // Form group for managing game details
+  gameForm!: FormGroup; // Form group for managing game details
   isEditMode: boolean = false;
   selectedGame?: Games;
-  error: string | null = null;  // Error handling
+  error: string | null = null; // Error handling
 
   constructor(
     private fb: FormBuilder,
@@ -26,24 +26,39 @@ export class ModifyListItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const gamesArray = this.gameService.getGamesArray(); // Get games for validation
+
     // Initialize the form with custom validators
     this.gameForm = this.fb.group({
-      id: ['', [Validators.required, CustomValidators.positiveNumber(), CustomValidators.uniqueGame(this.gameService.games, 'id')]],
-      title: ['', [Validators.required, CustomValidators.noSpecialChars(), CustomValidators.uniqueGame(this.gameService.games, 'title')]],
+      id: [
+        '',
+        [
+          Validators.required,
+          CustomValidators.positiveNumber(),
+          CustomValidators.uniqueGame(gamesArray, 'id'), // Use the games array
+        ],
+      ],
+      title: [
+        '',
+        [
+          Validators.required,
+          CustomValidators.noSpecialChars(),
+          CustomValidators.uniqueGame(gamesArray, 'title'), // Use the games array
+        ],
+      ],
       genre: ['', Validators.required],
       developer: ['', Validators.required],
       releaseDate: ['', Validators.required],
       rating: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
-      URL: ['', Validators.required]
+      URL: ['', Validators.required],
     });
 
-
     // Check query params for edit mode
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       const id = params['id'];
       if (id) {
         this.isEditMode = true;
-        this.loadGameForEdit(+id);  // Load existing game data for editing
+        this.loadGameForEdit(+id); // Load existing game data for editing
       }
     });
   }
@@ -54,16 +69,16 @@ export class ModifyListItemComponent implements OnInit {
       next: (game) => {
         if (game) {
           this.selectedGame = game;
-          this.gameForm.patchValue(game);  // Populate form with game data
+          this.gameForm.patchValue(game); // Populate form with game data
         } else {
           console.error('Game not found');
           this.error = 'Game not found';
         }
       },
-      error: err => {
+      error: (err) => {
         console.error('Error loading game', err);
         this.error = 'Failed to load game data';
-      }
+      },
     });
   }
 
@@ -79,17 +94,17 @@ export class ModifyListItemComponent implements OnInit {
 
   // Add a new game
   addGame(game: Games): void {
-    const newId = this.gameService.generateNewId();
+    const newId = this.gameService.generateNewId(); // Call the method
     game.id = newId;
     this.gameService.addGame(game).subscribe({
       next: () => {
         console.log('Game added:', game);
         this.navigateToGameList();
       },
-      error: err => {
+      error: (err) => {
         console.error('Error adding game', err);
         this.error = 'Failed to add game';
-      }
+      },
     });
   }
 
@@ -102,10 +117,10 @@ export class ModifyListItemComponent implements OnInit {
           console.log('Game updated:', game);
           this.navigateToGameList();
         },
-        error: err => {
+        error: (err) => {
           console.error('Error updating game', err);
           this.error = 'Failed to update game';
-        }
+        },
       });
     }
   }
@@ -119,10 +134,10 @@ export class ModifyListItemComponent implements OnInit {
           console.log(`Game with ID ${id} deleted`);
           this.navigateToGameList();
         },
-        error: err => {
+        error: (err) => {
           console.error('Error deleting game', err);
           this.error = 'Failed to delete game';
-        }
+        },
       });
     }
   }

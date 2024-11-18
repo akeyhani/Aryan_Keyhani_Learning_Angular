@@ -1,64 +1,63 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { Games } from '../Games';
+import { gameList } from '../Shared/Models/mock-game';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GameService {
-  private apiUrl = 'api/games'; // Endpoint provided by InMemoryDataService
+  private games: Games[] = [...gameList]; // Define the games array as private
 
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   // Get all games
   getAllGames(): Observable<Games[]> {
-    return this.http.get<Games[]>(this.apiUrl).pipe(
-      catchError(this.handleError<Games[]>('getAllGames', []))
-    );
+    return of(this.games);
   }
 
   // Add a new game
   addGame(newGame: Games): Observable<Games> {
-    return this.http.post<Games>(this.apiUrl, newGame, this.httpOptions).pipe(
-      catchError(this.handleError<Games>('addGame'))
-    );
+    newGame.id = this.generateNewId();
+    this.games.push(newGame);
+    return of(newGame);
   }
 
   // Update an existing game
-  updateGame(updatedGame: Games): Observable<Games> {
-    const url = `${this.apiUrl}/${updatedGame.id}`;
-    return this.http.put<Games>(url, updatedGame, this.httpOptions).pipe(
-      catchError(this.handleError<Games>('updateGame'))
-    );
+  updateGame(updatedGame: Games): Observable<Games | undefined> {
+    const index = this.games.findIndex((game) => game.id === updatedGame.id);
+    if (index !== -1) {
+      this.games[index] = updatedGame;
+      return of(updatedGame);
+    }
+    return of(undefined);
   }
 
   // Remove a game by ID
-  removeGameById(id: number): Observable<Games> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<Games>(url, this.httpOptions).pipe(
-      catchError(this.handleError<Games>('removeGameById'))
-    );
+  removeGameById(id: number): Observable<Games | undefined> {
+    const index = this.games.findIndex((game) => game.id === id);
+    if (index !== -1) {
+      const removedGame = this.games.splice(index, 1)[0];
+      return of(removedGame);
+    }
+    return of(undefined);
   }
 
   // Get a game by ID
-  getGameById(gameId: number): Observable<Games> {
-    const url = `${this.apiUrl}/${gameId}`;
-    return this.http.get<Games>(url).pipe(
-      catchError(this.handleError<Games>('getGameById'))
-    );
+  getGameById(gameId: number): Observable<Games | undefined> {
+    const game = this.games.find((game) => game.id === gameId);
+    return of(game);
   }
 
-  // Handle HTTP operation that failed
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
+  // Generate a new unique ID
+  generateNewId(): number {
+    return this.games.length > 0
+      ? Math.max(...this.games.map((game) => game.id)) + 1
+      : 1;
+  }
+
+  // Expose games array for validation purposes (read-only)
+  getGamesArray(): Games[] {
+    return [...this.games];
   }
 }
