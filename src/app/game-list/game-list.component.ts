@@ -3,12 +3,13 @@ import { Games } from '../Games';
 import { GameService } from '../Services/game.service';
 import { CommonModule, DatePipe, UpperCasePipe, TitleCasePipe } from '@angular/common';
 import { GameListItemComponent } from '../game-list-item/game-list-item.component';
+import {RatingColorPipe} from "../Shared/rating-color.pipe";
 
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
   standalone: true,
-  imports: [GameListItemComponent, CommonModule, DatePipe, UpperCasePipe, TitleCasePipe],
+  imports: [RatingColorPipe, CommonModule, DatePipe, UpperCasePipe, TitleCasePipe],
   styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent implements OnInit {

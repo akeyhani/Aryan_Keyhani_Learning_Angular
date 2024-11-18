@@ -5,11 +5,12 @@ import { GameListComponent } from './game-list/game-list.component';
 import { GameListItemComponent } from './game-list-item/game-list-item.component';
 import { GameService } from './Services/game.service';
 import { Games } from './Games';
+import {RatingColorPipe} from "./Shared/rating-color.pipe";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgForOf, NgIf, GameListComponent, GameListItemComponent, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, NgForOf, NgIf, GameListComponent, GameListItemComponent, RouterLink, RatingColorPipe],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

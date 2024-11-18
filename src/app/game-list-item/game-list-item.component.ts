@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { Games } from '../Games';
 import { GameService } from '../Services/game.service';
 import {DatePipe, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
+import {RatingColorPipe} from "../Shared/rating-color.pipe";
 
 @Component({
   selector: 'app-game-list-item',
   templateUrl: './game-list-item.component.html',
-  imports: [NgOptimizedImage, TitleCasePipe, UpperCasePipe, DatePipe],
+  imports: [RatingColorPipe, TitleCasePipe, UpperCasePipe, DatePipe],
   styleUrls: ['./game-list-item.component.css'],
   standalone: true
 })

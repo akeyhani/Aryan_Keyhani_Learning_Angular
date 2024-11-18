@@ -4,9 +4,5 @@
   <p>Genre: {{ game.genre | uppercase }}</p>
   <p>Developer: {{ game.developer }}</p>
   <p>Release Date: {{ game.releaseDate | date: 'mediumDate' }}</p>
-  <p>Rating: {{ game.rating }}</p>
-</div>
-
-<div *ngIf="errorMessage" class="error">
-  {{ errorMessage }}
+  <p [class]="game.rating | ratingColor">Rating: {{ game.rating }}</p>
 </div>

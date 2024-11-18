@@ -3,7 +3,7 @@
   <p>Genre: {{ gameItem?.genre }}</p>
   <p>Developer: {{ gameItem?.developer | uppercase }}</p>
   <p>Release Date: {{ gameItem?.releaseDate | date: 'mediumDate' }}</p>
-  <p>Rating: {{ gameItem?.rating }}</p>
+  <p>Rating: {{ gameItem?.rating | ratingColor}}</p>
   <img [src]="gameItem?.URL" alt="{{ gameItem?.title }}" width="200" height="300">
   <button type="button" (click)="onEdit()">Edit</button>
   <button type="button" (click)="onDelete(gameItem?.id)">Delete</button>

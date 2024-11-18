@@ -13,3 +13,17 @@ div {
   border: 1px solid black;
   margin: 5px;
 }
+.text-success {
+  color: green;
+  font-weight: bold;
+}
+
+.text-warning {
+  color: orange;
+  font-weight: bold;
+}
+
+.text-danger {
+  color: red;
+  font-weight: bold;
+}
