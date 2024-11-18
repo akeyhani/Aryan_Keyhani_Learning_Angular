@@ -1,10 +1,9 @@
 <div class="game-item-container">
-  <h1>{{ gameItem?.title | titlecase }}</h1>
-  <p>Genre: {{ gameItem?.genre }}</p>
-  <p>Developer: {{ gameItem?.developer | uppercase }}</p>
+  <h3>{{ gameItem?.title | titlecase }}</h3>
+  <h4>{{ gameItem?.genre | uppercase }}</h4>
+  <p>Developer: {{ gameItem?.developer }}</p>
   <p>Release Date: {{ gameItem?.releaseDate | date: 'mediumDate' }}</p>
-  <p>Rating: {{ gameItem?.rating | ratingColor}}</p>
-  <img [src]="gameItem?.URL" alt="{{ gameItem?.title }}" width="200" height="300">
+  <img [src]="gameItem?.URL" width="200" height="300" alt="{{ gameItem?.title }}">
   <button type="button" (click)="onEdit()">Edit</button>
   <button type="button" (click)="onDelete(gameItem?.id)">Delete</button>
 </div>
