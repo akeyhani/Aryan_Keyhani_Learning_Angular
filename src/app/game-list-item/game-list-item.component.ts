@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Games } from '../Games';  // Ensure correct import
+import { Games } from '../Games';
 import { GameService } from '../Services/game.service';
-import { NgOptimizedImage } from "@angular/common";
+import {DatePipe, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
 
 @Component({
   selector: 'app-game-list-item',
   templateUrl: './game-list-item.component.html',
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, TitleCasePipe, UpperCasePipe, DatePipe],
   styleUrls: ['./game-list-item.component.css'],
   standalone: true
 })

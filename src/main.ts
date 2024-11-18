@@ -5,6 +5,10 @@ import { GameListComponent } from './app/game-list/game-list.component';
 import { GameListItemComponent } from './app/game-list-item/game-list-item.component';
 import { ModifyListItemComponent } from './app/modify-list-item/modify-list-item.component';
 import { PageNotFoundComponent } from './app/page-not-found/page-not-found.component';
+import { importProvidersFrom } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './app/Services/in-memory-data.service';
 
 // Define the routes
 const routes: Routes = [
@@ -15,8 +19,15 @@ const routes: Routes = [
   { path: '**', component: PageNotFoundComponent }  // Wildcard route for 404
 ];
 
-// Bootstrap the application with the router
+// Bootstrap the application with the router and in-memory API
 bootstrapApplication(AppComponent, {
-  providers: [provideRouter(routes)]
+  providers: [
+    provideRouter(routes),
+    importProvidersFrom(
+      HttpClientModule,
+      HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 500 })  // Simulate backend
+    )
+  ]
 })
-  .then(r => console.log('Bootstrap successful'))
+  .then(() => console.log('Bootstrap successful'))
+  .catch(err => console.error(err));

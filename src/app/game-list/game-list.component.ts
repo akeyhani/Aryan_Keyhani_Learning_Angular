@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Games } from '../Games';
 import { GameService } from '../Services/game.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe, UpperCasePipe, TitleCasePipe } from '@angular/common';
 import { GameListItemComponent } from '../game-list-item/game-list-item.component';
 
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
   standalone: true,
-  imports: [GameListItemComponent, CommonModule],
+  imports: [GameListItemComponent, CommonModule, DatePipe, UpperCasePipe, TitleCasePipe],
   styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent implements OnInit {
-  gameList: Games[] = [];  // Array to store list of games
+  gameList: Games[] = [];
+  errorMessage: string | null = null;
 
   constructor(private gameService: GameService) {}
 
@@ -20,12 +21,16 @@ export class GameListComponent implements OnInit {
     this.loadGames();
   }
 
-  // Method to load games from the service
   private loadGames(): void {
     this.gameService.getAllGames().subscribe({
-      next: (games: Games[]) => this.gameList = games,
-      error: err => console.error("Error fetching games", err),
-      complete: () => console.log("Game data fetch complete!")
+      next: (games) => {
+        this.gameList = games;
+        this.errorMessage = null;
+      },
+      error: (err) => {
+        console.error("Error fetching games", err);
+        this.errorMessage = "Failed to load games. Please try again later.";
+      }
     });
   }
 }
