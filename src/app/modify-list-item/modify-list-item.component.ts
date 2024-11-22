@@ -5,11 +5,11 @@ import { Games } from '../Games';
 import { GameService } from '../Services/game.service';
 import { CustomValidators } from '../Shared/custom-validators';
 import { NgIf } from '@angular/common';
-
+import { HighlightOnFocusDirective } from '../directives/highlight-on-focus.directive';
 @Component({
   selector: 'app-modify-list-item',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [HighlightOnFocusDirective,ReactiveFormsModule, NgIf],
   templateUrl: './modify-list-item.component.html',
 })
 export class ModifyListItemComponent implements OnInit {
