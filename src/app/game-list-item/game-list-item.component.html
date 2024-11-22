@@ -1,4 +1,5 @@
-<div class="game-item-container" [appHoverHighlight]="'yellow'">  <h3>{{ gameItem?.title | titlecase }}</h3>
+<div class="game-item-container" [appShowDetailsOnHover]="'Cyberpunk is a science-fiction subgenre set in dystopian futures characterized by advanced technology, cybernetics, and societal collapse.'">
+  <h3>{{ gameItem?.title | titlecase }}</h3>
   <h4>{{ gameItem?.genre | uppercase }}</h4>
   <p>Developer: {{ gameItem?.developer }}</p>
   <p>Release Date: {{ gameItem?.releaseDate | date: 'mediumDate' }}</p>

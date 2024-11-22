@@ -5,6 +5,7 @@ import { GameService } from '../Services/game.service';
 import { DatePipe, NgOptimizedImage, TitleCasePipe, UpperCasePipe } from "@angular/common";
 import { RatingColorPipe } from "../Shared/rating-color.pipe";
 import { HoverHighlightDirective } from '../directives/hover-highlight.directive'; // Import the directive
+import { ShowDetailsOnHoverDirective } from '../Shared/show-details-on-hover.directive'; // Import the tooltip directive
 
 @Component({
   selector: 'app-game-list-item',
@@ -14,7 +15,8 @@ import { HoverHighlightDirective } from '../directives/hover-highlight.directive
     TitleCasePipe,
     UpperCasePipe,
     DatePipe,
-    HoverHighlightDirective // Add the directive to imports
+    HoverHighlightDirective, // Add the HoverHighlightDirective
+    ShowDetailsOnHoverDirective // Add the ShowDetailsOnHoverDirective
   ],
   styleUrls: ['./game-list-item.component.css'],
   standalone: true
@@ -37,7 +39,6 @@ export class GameListItemComponent {
       this.gameService.removeGameById(id).subscribe({
         next: () => {
           console.log(`Game with ID ${id} deleted`);
-          // Additional handling can be added here if needed, e.g., refreshing a parent list
         },
         error: err => console.error('Error deleting game:', err)
       });
