@@ -1,5 +1,4 @@
-<div class="game-item-container">
-  <h3>{{ gameItem?.title | titlecase }}</h3>
+<div class="game-item-container" [appHoverHighlight]="'yellow'">  <h3>{{ gameItem?.title | titlecase }}</h3>
   <h4>{{ gameItem?.genre | uppercase }}</h4>
   <p>Developer: {{ gameItem?.developer }}</p>
   <p>Release Date: {{ gameItem?.releaseDate | date: 'mediumDate' }}</p>

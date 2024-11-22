@@ -2,18 +2,25 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Games } from '../Games';
 import { GameService } from '../Services/game.service';
-import {DatePipe, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
-import {RatingColorPipe} from "../Shared/rating-color.pipe";
+import { DatePipe, NgOptimizedImage, TitleCasePipe, UpperCasePipe } from "@angular/common";
+import { RatingColorPipe } from "../Shared/rating-color.pipe";
+import { HoverHighlightDirective } from '../directives/hover-highlight.directive'; // Import the directive
 
 @Component({
   selector: 'app-game-list-item',
   templateUrl: './game-list-item.component.html',
-  imports: [RatingColorPipe, TitleCasePipe, UpperCasePipe, DatePipe],
+  imports: [
+    RatingColorPipe,
+    TitleCasePipe,
+    UpperCasePipe,
+    DatePipe,
+    HoverHighlightDirective // Add the directive to imports
+  ],
   styleUrls: ['./game-list-item.component.css'],
   standalone: true
 })
 export class GameListItemComponent {
-  @Input() gameItem?: Games;  // Declare gameItem as an input property of type Games
+  @Input() gameItem?: Games; // Declare gameItem as an input property of type Games
 
   constructor(private router: Router, private gameService: GameService) {}
 
