@@ -4,12 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Games } from '../Games';
 import { GameService } from '../Services/game.service';
 import { CustomValidators } from '../Shared/custom-validators';
-import { NgIf } from '@angular/common';
+import { NgIf, CommonModule } from '@angular/common';
 import { HighlightOnFocusDirective } from '../directives/highlight-on-focus.directive';
+
 @Component({
   selector: 'app-modify-list-item',
   standalone: true,
-  imports: [HighlightOnFocusDirective,ReactiveFormsModule, NgIf],
+  imports: [CommonModule, HighlightOnFocusDirective, ReactiveFormsModule, NgIf, CommonModule],
   templateUrl: './modify-list-item.component.html',
 })
 export class ModifyListItemComponent implements OnInit {
@@ -35,7 +36,7 @@ export class ModifyListItemComponent implements OnInit {
         [
           Validators.required,
           CustomValidators.positiveNumber(),
-          CustomValidators.uniqueGame(gamesArray, 'id'), // Use the games array
+          CustomValidators.uniqueGame(gamesArray, 'id'),
         ],
       ],
       title: [
@@ -43,7 +44,7 @@ export class ModifyListItemComponent implements OnInit {
         [
           Validators.required,
           CustomValidators.noSpecialChars(),
-          CustomValidators.uniqueGame(gamesArray, 'title'), // Use the games array
+          CustomValidators.uniqueGame(gamesArray, 'title'),
         ],
       ],
       genre: ['', Validators.required],
@@ -94,7 +95,7 @@ export class ModifyListItemComponent implements OnInit {
 
   // Add a new game
   addGame(game: Games): void {
-    const newId = this.gameService.generateNewId(); // Call the method
+    const newId = this.gameService.generateNewId();
     game.id = newId;
     this.gameService.addGame(game).subscribe({
       next: () => {

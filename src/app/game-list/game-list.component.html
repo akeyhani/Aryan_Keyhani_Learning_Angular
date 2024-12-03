@@ -1,8 +1,8 @@
 <div
   class="game-container"
-
   *ngFor="let game of gameList"
   [appHoverHighlight]="'lightblue'"
+  [appShowDetailsOnHover]="'Hovering over this game displays details about Cyberpunk!'"
 >
   <h2>{{ game.title | titlecase }}</h2>
   <p>ID: {{ game.id }}</p>

@@ -3,14 +3,23 @@ import { Games } from '../Games';
 import { GameService } from '../Services/game.service';
 import { CommonModule, DatePipe, UpperCasePipe, TitleCasePipe } from '@angular/common';
 import { GameListItemComponent } from '../game-list-item/game-list-item.component';
-import {RatingColorPipe} from "../Shared/rating-color.pipe";
+import { RatingColorPipe } from "../Shared/rating-color.pipe";
 import { HoverHighlightDirective } from '../directives/hover-highlight.directive';
+import { ShowDetailsOnHoverDirective } from '../Shared/show-details-on-hover.directive';
 
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
   standalone: true,
-  imports: [RatingColorPipe, CommonModule, DatePipe, UpperCasePipe, TitleCasePipe, HoverHighlightDirective],
+  imports: [
+    RatingColorPipe,
+    CommonModule,
+    DatePipe,
+    UpperCasePipe,
+    TitleCasePipe,
+    HoverHighlightDirective,
+    ShowDetailsOnHoverDirective
+  ],
   styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent implements OnInit {

@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Games } from '../Games';
 import { GameService } from '../Services/game.service';
-import { DatePipe, NgOptimizedImage, TitleCasePipe, UpperCasePipe } from "@angular/common";
+import {CommonModule, DatePipe, NgOptimizedImage, TitleCasePipe, UpperCasePipe} from "@angular/common";
 import { RatingColorPipe } from "../Shared/rating-color.pipe";
-import { HoverHighlightDirective } from '../directives/hover-highlight.directive'; // Import the directive
+import { HoverHighlightDirective } from '../directives/hover-highlight.directive'; // Import the hover directive
 import { ShowDetailsOnHoverDirective } from '../Shared/show-details-on-hover.directive'; // Import the tooltip directive
 
 @Component({
@@ -15,8 +15,9 @@ import { ShowDetailsOnHoverDirective } from '../Shared/show-details-on-hover.dir
     TitleCasePipe,
     UpperCasePipe,
     DatePipe,
-    HoverHighlightDirective, // Add the HoverHighlightDirective
-    ShowDetailsOnHoverDirective // Add the ShowDetailsOnHoverDirective
+    HoverHighlightDirective,
+    CommonModule,
+    ShowDetailsOnHoverDirective // Tooltip directive
   ],
   styleUrls: ['./game-list-item.component.css'],
   standalone: true
